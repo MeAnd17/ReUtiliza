@@ -36,6 +36,7 @@ fun HomeScreen(
 ) {
     val user     by vm.currentUser.collectAsState()
     val products by vm.recentProducts.collectAsState()
+    val ecoTips  by vm.ecoTips.collectAsState()
 
     LazyColumn(
         modifier            = Modifier.fillMaxSize().background(Green50),
@@ -120,6 +121,56 @@ fun HomeScreen(
                 HowItWorksStep("1", "Publica",  "Sube el objeto que ya no usas",        Modifier.weight(1f))
                 HowItWorksStep("2", "Conecta",  "Personas interesadas te contactan",    Modifier.weight(1f))
                 HowItWorksStep("3", "Reutiliza","Dale una segunda vida al objeto",      Modifier.weight(1f))
+            }
+        }
+
+        // ── Eco-Consejos (Consumo API REST con Retrofit) ──────────────────────
+        if (ecoTips.isNotEmpty()) {
+            item {
+                Spacer(Modifier.height(24.dp))
+                Row(
+                    modifier              = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment     = Alignment.CenterVertically
+                ) {
+                    Text("🌍 Eco-Tips (API REST)", style = MaterialTheme.typography.headlineSmall)
+                    Surface(shape = RoundedCornerShape(12.dp), color = Green100) {
+                        Text(
+                            "Conectado",
+                            style = MaterialTheme.typography.labelSmall.copy(color = Green500, fontWeight = FontWeight.Bold),
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                        )
+                    }
+                }
+                Spacer(Modifier.height(12.dp))
+                LazyRow(
+                    contentPadding        = PaddingValues(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    items(ecoTips) { tip ->
+                        Card(
+                            modifier  = Modifier.width(260.dp).height(130.dp),
+                            shape     = RoundedCornerShape(16.dp),
+                            colors    = CardDefaults.cardColors(containerColor = Color.White),
+                            elevation = CardDefaults.cardElevation(2.dp)
+                        ) {
+                            Column(modifier = Modifier.padding(14.dp)) {
+                                Text(
+                                    text      = tip.title,
+                                    style     = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                                    maxLines  = 1,
+                                    color     = NeutralBlack
+                                )
+                                Spacer(Modifier.height(6.dp))
+                                Text(
+                                    text      = tip.body,
+                                    style     = MaterialTheme.typography.bodySmall.copy(color = Color.Gray),
+                                    maxLines  = 3
+                                )
+                            }
+                        }
+                    }
+                }
             }
         }
 

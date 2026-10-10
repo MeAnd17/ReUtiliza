@@ -1,4 +1,4 @@
-#Sat Sep 05 11:50:04 PET 2026
+#Sat Oct 10 09:49:42 PET 2026
 base.0=/Users/admin/Downloads/2026-2/aplicaciones/ReUtiliza/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
 base.1=/Users/admin/Downloads/2026-2/aplicaciones/ReUtiliza/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
 base.10=/Users/admin/Downloads/2026-2/aplicaciones/ReUtiliza/app/build/intermediates/dex/debug/mergeProjectDexDebug/7/classes.dex

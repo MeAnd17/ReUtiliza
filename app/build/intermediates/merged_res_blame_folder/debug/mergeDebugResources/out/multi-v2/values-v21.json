@@ -4,7 +4,7 @@
             "outputFile": "com.reutiliza.app-mergeDebugResources-70:/values-v21/values-v21.xml",
             "map": [
                 {
-                    "source": "/Users/admin/.gradle/caches/8.10.2/transforms/0c96f413da5d278b819d736328428411/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/res/values-v21/values-v21.xml",
+                    "source": "/Users/admin/.gradle/caches/8.10.2/transforms/a5217607d1db999b9bacfe3394cc791a/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/res/values-v21/values-v21.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "/Users/admin/.gradle/caches/8.10.2/transforms/9fe291b6839a155bc3466aa16cc16cb1/transformed/core-1.13.1/res/values-v21/values-v21.xml",
+                    "source": "/Users/admin/.gradle/caches/8.10.2/transforms/762ab383499830f646781d9cc321622e/transformed/core-1.13.1/res/values-v21/values-v21.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,13",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",

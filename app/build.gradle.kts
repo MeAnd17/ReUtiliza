@@ -91,6 +91,10 @@ dependencies {
     // DataStore (preferencias locales)
     implementation(libs.androidx.datastore.preferences)
 
+    // Retrofit (consumo de API REST)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+
     // Tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
