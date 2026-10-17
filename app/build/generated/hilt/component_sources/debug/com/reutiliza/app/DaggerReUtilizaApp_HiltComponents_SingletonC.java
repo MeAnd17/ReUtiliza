@@ -12,12 +12,10 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
-import com.reutiliza.app.data.remote.EcoApiService;
 import com.reutiliza.app.data.repository.AuthRepository;
 import com.reutiliza.app.data.repository.ChatRepository;
 import com.reutiliza.app.data.repository.ProductRepository;
 import com.reutiliza.app.data.repository.UserRepository;
-import com.reutiliza.app.di.AppModule_ProvideEcoApiServiceFactory;
 import com.reutiliza.app.di.AppModule_ProvideFirebaseAuthFactory;
 import com.reutiliza.app.di.AppModule_ProvideFirestoreFactory;
 import com.reutiliza.app.di.AppModule_ProvideStorageFactory;
@@ -426,29 +424,26 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
     private static final class LazyClassKeyProvider {
       static String com_reutiliza_app_viewmodel_ChatViewModel = "com.reutiliza.app.viewmodel.ChatViewModel";
 
+      static String com_reutiliza_app_viewmodel_PublishViewModel = "com.reutiliza.app.viewmodel.PublishViewModel";
+
       static String com_reutiliza_app_viewmodel_AuthViewModel = "com.reutiliza.app.viewmodel.AuthViewModel";
-
-      static String com_reutiliza_app_viewmodel_ProductDetailViewModel = "com.reutiliza.app.viewmodel.ProductDetailViewModel";
-
-      static String com_reutiliza_app_viewmodel_HomeViewModel = "com.reutiliza.app.viewmodel.HomeViewModel";
 
       static String com_reutiliza_app_viewmodel_ExploreViewModel = "com.reutiliza.app.viewmodel.ExploreViewModel";
 
       static String com_reutiliza_app_viewmodel_ProfileViewModel = "com.reutiliza.app.viewmodel.ProfileViewModel";
 
-      static String com_reutiliza_app_viewmodel_PublishViewModel = "com.reutiliza.app.viewmodel.PublishViewModel";
+      static String com_reutiliza_app_viewmodel_HomeViewModel = "com.reutiliza.app.viewmodel.HomeViewModel";
+
+      static String com_reutiliza_app_viewmodel_ProductDetailViewModel = "com.reutiliza.app.viewmodel.ProductDetailViewModel";
 
       @KeepFieldType
       ChatViewModel com_reutiliza_app_viewmodel_ChatViewModel2;
 
       @KeepFieldType
+      PublishViewModel com_reutiliza_app_viewmodel_PublishViewModel2;
+
+      @KeepFieldType
       AuthViewModel com_reutiliza_app_viewmodel_AuthViewModel2;
-
-      @KeepFieldType
-      ProductDetailViewModel com_reutiliza_app_viewmodel_ProductDetailViewModel2;
-
-      @KeepFieldType
-      HomeViewModel com_reutiliza_app_viewmodel_HomeViewModel2;
 
       @KeepFieldType
       ExploreViewModel com_reutiliza_app_viewmodel_ExploreViewModel2;
@@ -457,7 +452,10 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
       ProfileViewModel com_reutiliza_app_viewmodel_ProfileViewModel2;
 
       @KeepFieldType
-      PublishViewModel com_reutiliza_app_viewmodel_PublishViewModel2;
+      HomeViewModel com_reutiliza_app_viewmodel_HomeViewModel2;
+
+      @KeepFieldType
+      ProductDetailViewModel com_reutiliza_app_viewmodel_ProductDetailViewModel2;
     }
   }
 
@@ -516,19 +514,25 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
+      static String com_reutiliza_app_viewmodel_ProductDetailViewModel = "com.reutiliza.app.viewmodel.ProductDetailViewModel";
+
+      static String com_reutiliza_app_viewmodel_ProfileViewModel = "com.reutiliza.app.viewmodel.ProfileViewModel";
+
       static String com_reutiliza_app_viewmodel_AuthViewModel = "com.reutiliza.app.viewmodel.AuthViewModel";
 
       static String com_reutiliza_app_viewmodel_ExploreViewModel = "com.reutiliza.app.viewmodel.ExploreViewModel";
 
       static String com_reutiliza_app_viewmodel_PublishViewModel = "com.reutiliza.app.viewmodel.PublishViewModel";
 
-      static String com_reutiliza_app_viewmodel_HomeViewModel = "com.reutiliza.app.viewmodel.HomeViewModel";
-
-      static String com_reutiliza_app_viewmodel_ProfileViewModel = "com.reutiliza.app.viewmodel.ProfileViewModel";
-
       static String com_reutiliza_app_viewmodel_ChatViewModel = "com.reutiliza.app.viewmodel.ChatViewModel";
 
-      static String com_reutiliza_app_viewmodel_ProductDetailViewModel = "com.reutiliza.app.viewmodel.ProductDetailViewModel";
+      static String com_reutiliza_app_viewmodel_HomeViewModel = "com.reutiliza.app.viewmodel.HomeViewModel";
+
+      @KeepFieldType
+      ProductDetailViewModel com_reutiliza_app_viewmodel_ProductDetailViewModel2;
+
+      @KeepFieldType
+      ProfileViewModel com_reutiliza_app_viewmodel_ProfileViewModel2;
 
       @KeepFieldType
       AuthViewModel com_reutiliza_app_viewmodel_AuthViewModel2;
@@ -540,16 +544,10 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
       PublishViewModel com_reutiliza_app_viewmodel_PublishViewModel2;
 
       @KeepFieldType
-      HomeViewModel com_reutiliza_app_viewmodel_HomeViewModel2;
-
-      @KeepFieldType
-      ProfileViewModel com_reutiliza_app_viewmodel_ProfileViewModel2;
-
-      @KeepFieldType
       ChatViewModel com_reutiliza_app_viewmodel_ChatViewModel2;
 
       @KeepFieldType
-      ProductDetailViewModel com_reutiliza_app_viewmodel_ProductDetailViewModel2;
+      HomeViewModel com_reutiliza_app_viewmodel_HomeViewModel2;
     }
 
     private static final class SwitchingProvider<T> implements Provider<T> {
@@ -583,7 +581,7 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
           return (T) new ExploreViewModel(singletonCImpl.productRepositoryProvider.get());
 
           case 3: // com.reutiliza.app.viewmodel.HomeViewModel 
-          return (T) new HomeViewModel(singletonCImpl.productRepositoryProvider.get(), singletonCImpl.userRepositoryProvider.get(), singletonCImpl.provideEcoApiServiceProvider.get(), singletonCImpl.provideFirebaseAuthProvider.get());
+          return (T) new HomeViewModel(singletonCImpl.productRepositoryProvider.get(), singletonCImpl.userRepositoryProvider.get(), singletonCImpl.provideFirebaseAuthProvider.get());
 
           case 4: // com.reutiliza.app.viewmodel.ProductDetailViewModel 
           return (T) new ProductDetailViewModel(singletonCImpl.productRepositoryProvider.get(), singletonCImpl.userRepositoryProvider.get(), singletonCImpl.chatRepositoryProvider.get(), singletonCImpl.provideFirebaseAuthProvider.get());
@@ -686,8 +684,6 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
 
     private Provider<ProductRepository> productRepositoryProvider;
 
-    private Provider<EcoApiService> provideEcoApiServiceProvider;
-
     private SingletonCImpl() {
 
       initialize();
@@ -703,7 +699,6 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
       this.userRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<UserRepository>(singletonCImpl, 4));
       this.provideStorageProvider = DoubleCheck.provider(new SwitchingProvider<FirebaseStorage>(singletonCImpl, 6));
       this.productRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<ProductRepository>(singletonCImpl, 5));
-      this.provideEcoApiServiceProvider = DoubleCheck.provider(new SwitchingProvider<EcoApiService>(singletonCImpl, 7));
     }
 
     @Override
@@ -759,9 +754,6 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
 
           case 6: // com.google.firebase.storage.FirebaseStorage 
           return (T) AppModule_ProvideStorageFactory.provideStorage();
-
-          case 7: // com.reutiliza.app.data.remote.EcoApiService 
-          return (T) AppModule_ProvideEcoApiServiceFactory.provideEcoApiService();
 
           default: throw new AssertionError(id);
         }
