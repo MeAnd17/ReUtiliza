@@ -2,9 +2,9 @@ package com.reutiliza.app.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.FirebaseAuth
 import com.reutiliza.app.data.model.Product
 import com.reutiliza.app.data.model.User
+import com.reutiliza.app.data.repository.AuthRepository
 import com.reutiliza.app.data.repository.ProductRepository
 import com.reutiliza.app.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val productRepo: ProductRepository,
     private val userRepo: UserRepository,
-    private val auth: FirebaseAuth
+    private val authRepo: AuthRepository
 ) : ViewModel() {
 
     private val _currentUser = MutableStateFlow<User?>(null)
@@ -34,14 +34,20 @@ class HomeViewModel @Inject constructor(
     }
 
     fun loadData() {
-        val uid = auth.currentUser?.uid ?: return
         viewModelScope.launch {
-            // Usuario actual
-            userRepo.getUserFlow(uid).collect { _currentUser.value = it }
+            _isLoading.value = true
+            // Cargar usuario actual
+            val userId = authRepo.getCurrentUserId()
+            if (userId != null) {
+                userRepo.getUserFlow(userId).collect { _currentUser.value = it }
+            }
         }
         viewModelScope.launch {
-            // Productos recientes
-            productRepo.getRecentProducts().collect { _recentProducts.value = it }
+            // Cargar productos recientes desde el backend
+            productRepo.getRecentProducts().collect {
+                _recentProducts.value = it
+                _isLoading.value = false
+            }
         }
     }
 }

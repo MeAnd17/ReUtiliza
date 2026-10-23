@@ -91,6 +91,11 @@ dependencies {
     // DataStore (preferencias locales)
     implementation(libs.androidx.datastore.preferences)
 
+    // Retrofit + OkHttp (backend propio)
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.gson)
+    implementation(libs.okhttp.logging)
+
     // Tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
