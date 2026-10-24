@@ -10,6 +10,7 @@ import com.reutiliza.app.data.repository.AuthRepository
 import com.reutiliza.app.data.repository.ChatRepository
 import com.reutiliza.app.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -76,7 +77,15 @@ class ChatViewModel @Inject constructor(
 
     fun loadMessages(chatId: String) {
         viewModelScope.launch {
+            // Carga inicial
             chatRepo.getChatMessages(chatId).collect { _messages.value = it }
+        }
+        // Polling cada 5 segundos para simular tiempo real
+        viewModelScope.launch {
+            while (true) {
+                delay(5000)
+                chatRepo.getChatMessages(chatId).collect { _messages.value = it }
+            }
         }
     }
 

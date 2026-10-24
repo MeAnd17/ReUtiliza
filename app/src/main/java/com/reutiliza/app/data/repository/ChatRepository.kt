@@ -20,13 +20,16 @@ class ChatRepository @Inject constructor(
 ) {
     fun getUserChats(userId: String): Flow<List<Chat>> = flow {
         val token = session.getToken() ?: run { emit(emptyList()); return@flow }
-        // El backend devuelve chats del usuario autenticado via el token
-        // Emitimos vacío si falla (sin crashear)
-        emit(emptyList()) // placeholder — sin WebSocket no hay tiempo real
+        runCatching { api.getUserChats(session.bearerToken(token)) }
+            .onSuccess { emit(it) }
+            .onFailure { emit(emptyList()) }
     }
 
     fun getChatMessages(chatId: String): Flow<List<Message>> = flow {
-        emit(emptyList()) // sin WebSocket, se refresca manualmente
+        val token = session.getToken() ?: run { emit(emptyList()); return@flow }
+        runCatching { api.getChatMessages(session.bearerToken(token), chatId) }
+            .onSuccess { emit(it) }
+            .onFailure { emit(emptyList()) }
     }
 
     suspend fun getOrCreateChat(
