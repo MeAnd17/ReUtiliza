@@ -22,6 +22,7 @@ import com.reutiliza.app.ui.screens.chat.ChatsScreen
 import com.reutiliza.app.ui.screens.detail.ProductDetailScreen
 import com.reutiliza.app.ui.screens.explore.ExploreScreen
 import com.reutiliza.app.ui.screens.home.HomeScreen
+import com.reutiliza.app.ui.screens.map.MapScreen
 import com.reutiliza.app.ui.screens.profile.ProfileScreen
 import com.reutiliza.app.ui.screens.publish.PublishScreen
 import com.reutiliza.app.ui.theme.Green500
@@ -129,7 +130,10 @@ fun ReUtilizaNavGraph(isLoggedIn: Boolean) {
                 HomeScreen(
                     onProductClick = { id ->
                         navController.navigate(Screen.ProductDetail.createRoute(id))
-                    }
+                    },
+                    onExploreClick = { navController.navigate(Screen.Explore.route) },
+                    onPublishClick = { navController.navigate(Screen.Publish.route) },
+                    onMapClick     = { navController.navigate(Screen.Map.route) }
                 )
             }
             composable(Screen.Explore.route) {
@@ -163,6 +167,14 @@ fun ReUtilizaNavGraph(isLoggedIn: Boolean) {
             }
 
             // ── Detail ────────────────────────────────────────────────────────
+            composable(Screen.Map.route) {
+                MapScreen(
+                    onBack = { navController.popBackStack() },
+                    onProductClick = { id ->
+                        navController.navigate(Screen.ProductDetail.createRoute(id))
+                    }
+                )
+            }
             composable(
                 route = Screen.ProductDetail.route,
                 arguments = listOf(navArgument("productId") { type = NavType.StringType })

@@ -1,6 +1,7 @@
 package com.reutiliza.app.data.repository;
 
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.reutiliza.app.data.local.SessionManager;
+import com.reutiliza.app.data.remote.ReUtilizaApiService;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.Factory;
 import dagger.internal.QualifierMetadata;
@@ -23,22 +24,27 @@ import javax.inject.Provider;
     "cast"
 })
 public final class UserRepository_Factory implements Factory<UserRepository> {
-  private final Provider<FirebaseFirestore> firestoreProvider;
+  private final Provider<ReUtilizaApiService> apiProvider;
 
-  public UserRepository_Factory(Provider<FirebaseFirestore> firestoreProvider) {
-    this.firestoreProvider = firestoreProvider;
+  private final Provider<SessionManager> sessionProvider;
+
+  public UserRepository_Factory(Provider<ReUtilizaApiService> apiProvider,
+      Provider<SessionManager> sessionProvider) {
+    this.apiProvider = apiProvider;
+    this.sessionProvider = sessionProvider;
   }
 
   @Override
   public UserRepository get() {
-    return newInstance(firestoreProvider.get());
+    return newInstance(apiProvider.get(), sessionProvider.get());
   }
 
-  public static UserRepository_Factory create(Provider<FirebaseFirestore> firestoreProvider) {
-    return new UserRepository_Factory(firestoreProvider);
+  public static UserRepository_Factory create(Provider<ReUtilizaApiService> apiProvider,
+      Provider<SessionManager> sessionProvider) {
+    return new UserRepository_Factory(apiProvider, sessionProvider);
   }
 
-  public static UserRepository newInstance(FirebaseFirestore firestore) {
-    return new UserRepository(firestore);
+  public static UserRepository newInstance(ReUtilizaApiService api, SessionManager session) {
+    return new UserRepository(api, session);
   }
 }

@@ -1,7 +1,7 @@
 package com.reutiliza.app.data.repository;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.reutiliza.app.data.local.SessionManager;
+import com.reutiliza.app.data.remote.ReUtilizaApiService;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.Factory;
 import dagger.internal.QualifierMetadata;
@@ -24,27 +24,27 @@ import javax.inject.Provider;
     "cast"
 })
 public final class AuthRepository_Factory implements Factory<AuthRepository> {
-  private final Provider<FirebaseAuth> authProvider;
+  private final Provider<ReUtilizaApiService> apiProvider;
 
-  private final Provider<FirebaseFirestore> firestoreProvider;
+  private final Provider<SessionManager> sessionProvider;
 
-  public AuthRepository_Factory(Provider<FirebaseAuth> authProvider,
-      Provider<FirebaseFirestore> firestoreProvider) {
-    this.authProvider = authProvider;
-    this.firestoreProvider = firestoreProvider;
+  public AuthRepository_Factory(Provider<ReUtilizaApiService> apiProvider,
+      Provider<SessionManager> sessionProvider) {
+    this.apiProvider = apiProvider;
+    this.sessionProvider = sessionProvider;
   }
 
   @Override
   public AuthRepository get() {
-    return newInstance(authProvider.get(), firestoreProvider.get());
+    return newInstance(apiProvider.get(), sessionProvider.get());
   }
 
-  public static AuthRepository_Factory create(Provider<FirebaseAuth> authProvider,
-      Provider<FirebaseFirestore> firestoreProvider) {
-    return new AuthRepository_Factory(authProvider, firestoreProvider);
+  public static AuthRepository_Factory create(Provider<ReUtilizaApiService> apiProvider,
+      Provider<SessionManager> sessionProvider) {
+    return new AuthRepository_Factory(apiProvider, sessionProvider);
   }
 
-  public static AuthRepository newInstance(FirebaseAuth auth, FirebaseFirestore firestore) {
-    return new AuthRepository(auth, firestore);
+  public static AuthRepository newInstance(ReUtilizaApiService api, SessionManager session) {
+    return new AuthRepository(api, session);
   }
 }

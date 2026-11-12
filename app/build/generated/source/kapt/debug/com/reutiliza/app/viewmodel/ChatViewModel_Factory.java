@@ -1,6 +1,6 @@
 package com.reutiliza.app.viewmodel;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.reutiliza.app.data.repository.AuthRepository;
 import com.reutiliza.app.data.repository.ChatRepository;
 import com.reutiliza.app.data.repository.UserRepository;
 import dagger.internal.DaggerGenerated;
@@ -29,27 +29,27 @@ public final class ChatViewModel_Factory implements Factory<ChatViewModel> {
 
   private final Provider<UserRepository> userRepoProvider;
 
-  private final Provider<FirebaseAuth> authProvider;
+  private final Provider<AuthRepository> authRepoProvider;
 
   public ChatViewModel_Factory(Provider<ChatRepository> chatRepoProvider,
-      Provider<UserRepository> userRepoProvider, Provider<FirebaseAuth> authProvider) {
+      Provider<UserRepository> userRepoProvider, Provider<AuthRepository> authRepoProvider) {
     this.chatRepoProvider = chatRepoProvider;
     this.userRepoProvider = userRepoProvider;
-    this.authProvider = authProvider;
+    this.authRepoProvider = authRepoProvider;
   }
 
   @Override
   public ChatViewModel get() {
-    return newInstance(chatRepoProvider.get(), userRepoProvider.get(), authProvider.get());
+    return newInstance(chatRepoProvider.get(), userRepoProvider.get(), authRepoProvider.get());
   }
 
   public static ChatViewModel_Factory create(Provider<ChatRepository> chatRepoProvider,
-      Provider<UserRepository> userRepoProvider, Provider<FirebaseAuth> authProvider) {
-    return new ChatViewModel_Factory(chatRepoProvider, userRepoProvider, authProvider);
+      Provider<UserRepository> userRepoProvider, Provider<AuthRepository> authRepoProvider) {
+    return new ChatViewModel_Factory(chatRepoProvider, userRepoProvider, authRepoProvider);
   }
 
   public static ChatViewModel newInstance(ChatRepository chatRepo, UserRepository userRepo,
-      FirebaseAuth auth) {
-    return new ChatViewModel(chatRepo, userRepo, auth);
+      AuthRepository authRepo) {
+    return new ChatViewModel(chatRepo, userRepo, authRepo);
   }
 }

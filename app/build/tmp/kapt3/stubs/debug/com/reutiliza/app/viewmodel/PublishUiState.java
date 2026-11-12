@@ -2,11 +2,11 @@ package com.reutiliza.app.viewmodel;
 
 import android.net.Uri;
 import androidx.lifecycle.ViewModel;
-import com.google.firebase.auth.FirebaseAuth;
 import com.reutiliza.app.data.model.Product;
 import com.reutiliza.app.data.model.ProductCategory;
 import com.reutiliza.app.data.model.ProductCondition;
 import com.reutiliza.app.data.model.TransactionType;
+import com.reutiliza.app.data.repository.AuthRepository;
 import com.reutiliza.app.data.repository.ProductRepository;
 import com.reutiliza.app.data.repository.UserRepository;
 import dagger.hilt.android.lifecycle.HiltViewModel;

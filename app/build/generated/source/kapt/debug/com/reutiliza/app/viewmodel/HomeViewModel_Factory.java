@@ -1,6 +1,6 @@
 package com.reutiliza.app.viewmodel;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.reutiliza.app.data.repository.AuthRepository;
 import com.reutiliza.app.data.repository.ProductRepository;
 import com.reutiliza.app.data.repository.UserRepository;
 import dagger.internal.DaggerGenerated;
@@ -29,27 +29,27 @@ public final class HomeViewModel_Factory implements Factory<HomeViewModel> {
 
   private final Provider<UserRepository> userRepoProvider;
 
-  private final Provider<FirebaseAuth> authProvider;
+  private final Provider<AuthRepository> authRepoProvider;
 
   public HomeViewModel_Factory(Provider<ProductRepository> productRepoProvider,
-      Provider<UserRepository> userRepoProvider, Provider<FirebaseAuth> authProvider) {
+      Provider<UserRepository> userRepoProvider, Provider<AuthRepository> authRepoProvider) {
     this.productRepoProvider = productRepoProvider;
     this.userRepoProvider = userRepoProvider;
-    this.authProvider = authProvider;
+    this.authRepoProvider = authRepoProvider;
   }
 
   @Override
   public HomeViewModel get() {
-    return newInstance(productRepoProvider.get(), userRepoProvider.get(), authProvider.get());
+    return newInstance(productRepoProvider.get(), userRepoProvider.get(), authRepoProvider.get());
   }
 
   public static HomeViewModel_Factory create(Provider<ProductRepository> productRepoProvider,
-      Provider<UserRepository> userRepoProvider, Provider<FirebaseAuth> authProvider) {
-    return new HomeViewModel_Factory(productRepoProvider, userRepoProvider, authProvider);
+      Provider<UserRepository> userRepoProvider, Provider<AuthRepository> authRepoProvider) {
+    return new HomeViewModel_Factory(productRepoProvider, userRepoProvider, authRepoProvider);
   }
 
   public static HomeViewModel newInstance(ProductRepository productRepo, UserRepository userRepo,
-      FirebaseAuth auth) {
-    return new HomeViewModel(productRepo, userRepo, auth);
+      AuthRepository authRepo) {
+    return new HomeViewModel(productRepo, userRepo, authRepo);
   }
 }

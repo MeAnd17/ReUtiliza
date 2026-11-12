@@ -1,6 +1,6 @@
 package com.reutiliza.app;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.reutiliza.app.data.local.SessionManager;
 import dagger.MembersInjector;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.InjectedFieldSignature;
@@ -22,23 +22,24 @@ import javax.inject.Provider;
     "cast"
 })
 public final class MainActivity_MembersInjector implements MembersInjector<MainActivity> {
-  private final Provider<FirebaseAuth> authProvider;
+  private final Provider<SessionManager> sessionManagerProvider;
 
-  public MainActivity_MembersInjector(Provider<FirebaseAuth> authProvider) {
-    this.authProvider = authProvider;
+  public MainActivity_MembersInjector(Provider<SessionManager> sessionManagerProvider) {
+    this.sessionManagerProvider = sessionManagerProvider;
   }
 
-  public static MembersInjector<MainActivity> create(Provider<FirebaseAuth> authProvider) {
-    return new MainActivity_MembersInjector(authProvider);
+  public static MembersInjector<MainActivity> create(
+      Provider<SessionManager> sessionManagerProvider) {
+    return new MainActivity_MembersInjector(sessionManagerProvider);
   }
 
   @Override
   public void injectMembers(MainActivity instance) {
-    injectAuth(instance, authProvider.get());
+    injectSessionManager(instance, sessionManagerProvider.get());
   }
 
-  @InjectedFieldSignature("com.reutiliza.app.MainActivity.auth")
-  public static void injectAuth(MainActivity instance, FirebaseAuth auth) {
-    instance.auth = auth;
+  @InjectedFieldSignature("com.reutiliza.app.MainActivity.sessionManager")
+  public static void injectSessionManager(MainActivity instance, SessionManager sessionManager) {
+    instance.sessionManager = sessionManager;
   }
 }

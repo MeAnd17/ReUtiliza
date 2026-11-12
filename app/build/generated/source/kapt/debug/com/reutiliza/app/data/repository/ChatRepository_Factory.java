@@ -1,6 +1,7 @@
 package com.reutiliza.app.data.repository;
 
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.reutiliza.app.data.local.SessionManager;
+import com.reutiliza.app.data.remote.ReUtilizaApiService;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.Factory;
 import dagger.internal.QualifierMetadata;
@@ -23,22 +24,27 @@ import javax.inject.Provider;
     "cast"
 })
 public final class ChatRepository_Factory implements Factory<ChatRepository> {
-  private final Provider<FirebaseFirestore> firestoreProvider;
+  private final Provider<ReUtilizaApiService> apiProvider;
 
-  public ChatRepository_Factory(Provider<FirebaseFirestore> firestoreProvider) {
-    this.firestoreProvider = firestoreProvider;
+  private final Provider<SessionManager> sessionProvider;
+
+  public ChatRepository_Factory(Provider<ReUtilizaApiService> apiProvider,
+      Provider<SessionManager> sessionProvider) {
+    this.apiProvider = apiProvider;
+    this.sessionProvider = sessionProvider;
   }
 
   @Override
   public ChatRepository get() {
-    return newInstance(firestoreProvider.get());
+    return newInstance(apiProvider.get(), sessionProvider.get());
   }
 
-  public static ChatRepository_Factory create(Provider<FirebaseFirestore> firestoreProvider) {
-    return new ChatRepository_Factory(firestoreProvider);
+  public static ChatRepository_Factory create(Provider<ReUtilizaApiService> apiProvider,
+      Provider<SessionManager> sessionProvider) {
+    return new ChatRepository_Factory(apiProvider, sessionProvider);
   }
 
-  public static ChatRepository newInstance(FirebaseFirestore firestore) {
-    return new ChatRepository(firestore);
+  public static ChatRepository newInstance(ReUtilizaApiService api, SessionManager session) {
+    return new ChatRepository(api, session);
   }
 }

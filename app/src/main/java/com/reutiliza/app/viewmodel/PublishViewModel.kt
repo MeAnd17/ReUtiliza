@@ -3,6 +3,8 @@ package com.reutiliza.app.viewmodel
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.reutiliza.app.data.location.LocationManager
+import com.reutiliza.app.data.location.UserLocation
 import com.reutiliza.app.data.model.Product
 import com.reutiliza.app.data.model.ProductCategory
 import com.reutiliza.app.data.model.ProductCondition
@@ -27,7 +29,8 @@ sealed class PublishUiState {
 class PublishViewModel @Inject constructor(
     private val productRepo: ProductRepository,
     private val userRepo: UserRepository,
-    private val authRepo: AuthRepository
+    private val authRepo: AuthRepository,
+    private val locationManager: LocationManager
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<PublishUiState>(PublishUiState.Idle)
@@ -40,6 +43,15 @@ class PublishViewModel @Inject constructor(
     val selectedTransactionType = MutableStateFlow(TransactionType.DONATION)
     val selectedCondition       = MutableStateFlow(ProductCondition.GOOD)
     val selectedImages          = MutableStateFlow<List<Uri>>(emptyList())
+
+    private val _userLocation   = MutableStateFlow<UserLocation?>(null)
+    val userLocation: StateFlow<UserLocation?> = _userLocation
+
+    init {
+        viewModelScope.launch {
+            _userLocation.value = locationManager.getCurrentLocation()
+        }
+    }
 
     fun addImage(uri: Uri) {
         if (selectedImages.value.size < 5) {
@@ -89,7 +101,10 @@ class PublishViewModel @Inject constructor(
                     transactionType   = selectedTransactionType.value,
                     condition         = selectedCondition.value,
                     price             = price.value.toDoubleOrNull() ?: 0.0,
-                    greenPointsReward = greenPoints
+                    greenPointsReward = greenPoints,
+                    latitude          = _userLocation.value?.latitude ?: 0.0,
+                    longitude         = _userLocation.value?.longitude ?: 0.0,
+                    location          = if (_userLocation.value != null) "Ubicación actual" else ""
                 )
 
                 productRepo.publishProduct(product, imageBytes).fold(

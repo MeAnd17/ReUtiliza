@@ -32,6 +32,9 @@ import com.reutiliza.app.viewmodel.HomeViewModel
 @Composable
 fun HomeScreen(
     onProductClick: (String) -> Unit,
+    onExploreClick: () -> Unit = {},
+    onPublishClick: () -> Unit = {},
+    onMapClick: () -> Unit = {},
     vm: HomeViewModel = hiltViewModel()
 ) {
     val user     by vm.currentUser.collectAsState()
@@ -91,15 +94,15 @@ fun HomeScreen(
             ) {
                 item {
                     QuickActionCard("Explorar", "✨",
-                        onClick = { /* navegar */ })
+                        onClick = { onExploreClick() })
                 }
                 item {
                     QuickActionCard("Publicar", "🌿",
-                        onClick = { /* navegar */ })
+                        onClick = { onPublishClick() })
                 }
                 item {
-                    QuickActionCard("Tendencia", "📈",
-                        onClick = { /* navegar */ })
+                    QuickActionCard("Mapa", "🗺️",
+                        onClick = { onMapClick() })
                 }
             }
         }

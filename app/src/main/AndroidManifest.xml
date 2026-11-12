@@ -50,6 +50,11 @@
             </intent-filter>
         </service>
 
+        <!-- Google Maps API Key -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDOoTh6YaxIb3HA2eURODA7VII2arHGHR4" />
+
     </application>
 
 </manifest>

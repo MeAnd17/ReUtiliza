@@ -9,16 +9,15 @@ import androidx.lifecycle.ViewModel;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
+import com.reutiliza.app.data.local.SessionManager;
+import com.reutiliza.app.data.remote.ReUtilizaApiService;
 import com.reutiliza.app.data.repository.AuthRepository;
 import com.reutiliza.app.data.repository.ChatRepository;
 import com.reutiliza.app.data.repository.ProductRepository;
 import com.reutiliza.app.data.repository.UserRepository;
-import com.reutiliza.app.di.AppModule_ProvideFirebaseAuthFactory;
-import com.reutiliza.app.di.AppModule_ProvideFirestoreFactory;
-import com.reutiliza.app.di.AppModule_ProvideStorageFactory;
+import com.reutiliza.app.di.AppModule_ProvideOkHttpClientFactory;
+import com.reutiliza.app.di.AppModule_ProvideReUtilizaApiServiceFactory;
+import com.reutiliza.app.di.AppModule_ProvideRetrofitFactory;
 import com.reutiliza.app.viewmodel.AuthViewModel;
 import com.reutiliza.app.viewmodel.AuthViewModel_HiltModules;
 import com.reutiliza.app.viewmodel.ChatViewModel;
@@ -47,6 +46,7 @@ import dagger.hilt.android.internal.lifecycle.DefaultViewModelFactories_Internal
 import dagger.hilt.android.internal.managers.ActivityRetainedComponentManager_LifecycleModule_ProvideActivityRetainedLifecycleFactory;
 import dagger.hilt.android.internal.managers.SavedStateHandleHolder;
 import dagger.hilt.android.internal.modules.ApplicationContextModule;
+import dagger.hilt.android.internal.modules.ApplicationContextModule_ProvideContextFactory;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.DoubleCheck;
 import dagger.internal.IdentifierNameString;
@@ -57,6 +57,8 @@ import dagger.internal.Provider;
 import java.util.Map;
 import java.util.Set;
 import javax.annotation.processing.Generated;
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
 
 @DaggerGenerated
 @Generated(
@@ -78,25 +80,20 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
     return new Builder();
   }
 
-  public static ReUtilizaApp_HiltComponents.SingletonC create() {
-    return new Builder().build();
-  }
-
   public static final class Builder {
+    private ApplicationContextModule applicationContextModule;
+
     private Builder() {
     }
 
-    /**
-     * @deprecated This module is declared, but an instance is not used in the component. This method is a no-op. For more, see https://dagger.dev/unused-modules.
-     */
-    @Deprecated
     public Builder applicationContextModule(ApplicationContextModule applicationContextModule) {
-      Preconditions.checkNotNull(applicationContextModule);
+      this.applicationContextModule = Preconditions.checkNotNull(applicationContextModule);
       return this;
     }
 
     public ReUtilizaApp_HiltComponents.SingletonC build() {
-      return new SingletonCImpl();
+      Preconditions.checkBuilderRequirement(applicationContextModule, ApplicationContextModule.class);
+      return new SingletonCImpl(applicationContextModule);
     }
   }
 
@@ -416,25 +413,34 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
 
     @CanIgnoreReturnValue
     private MainActivity injectMainActivity2(MainActivity instance) {
-      MainActivity_MembersInjector.injectAuth(instance, singletonCImpl.provideFirebaseAuthProvider.get());
+      MainActivity_MembersInjector.injectSessionManager(instance, singletonCImpl.sessionManagerProvider.get());
       return instance;
     }
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
+      static String com_reutiliza_app_viewmodel_HomeViewModel = "com.reutiliza.app.viewmodel.HomeViewModel";
+
+      static String com_reutiliza_app_viewmodel_AuthViewModel = "com.reutiliza.app.viewmodel.AuthViewModel";
+
+      static String com_reutiliza_app_viewmodel_ProductDetailViewModel = "com.reutiliza.app.viewmodel.ProductDetailViewModel";
+
       static String com_reutiliza_app_viewmodel_ChatViewModel = "com.reutiliza.app.viewmodel.ChatViewModel";
 
       static String com_reutiliza_app_viewmodel_PublishViewModel = "com.reutiliza.app.viewmodel.PublishViewModel";
-
-      static String com_reutiliza_app_viewmodel_AuthViewModel = "com.reutiliza.app.viewmodel.AuthViewModel";
 
       static String com_reutiliza_app_viewmodel_ExploreViewModel = "com.reutiliza.app.viewmodel.ExploreViewModel";
 
       static String com_reutiliza_app_viewmodel_ProfileViewModel = "com.reutiliza.app.viewmodel.ProfileViewModel";
 
-      static String com_reutiliza_app_viewmodel_HomeViewModel = "com.reutiliza.app.viewmodel.HomeViewModel";
+      @KeepFieldType
+      HomeViewModel com_reutiliza_app_viewmodel_HomeViewModel2;
 
-      static String com_reutiliza_app_viewmodel_ProductDetailViewModel = "com.reutiliza.app.viewmodel.ProductDetailViewModel";
+      @KeepFieldType
+      AuthViewModel com_reutiliza_app_viewmodel_AuthViewModel2;
+
+      @KeepFieldType
+      ProductDetailViewModel com_reutiliza_app_viewmodel_ProductDetailViewModel2;
 
       @KeepFieldType
       ChatViewModel com_reutiliza_app_viewmodel_ChatViewModel2;
@@ -443,19 +449,10 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
       PublishViewModel com_reutiliza_app_viewmodel_PublishViewModel2;
 
       @KeepFieldType
-      AuthViewModel com_reutiliza_app_viewmodel_AuthViewModel2;
-
-      @KeepFieldType
       ExploreViewModel com_reutiliza_app_viewmodel_ExploreViewModel2;
 
       @KeepFieldType
       ProfileViewModel com_reutiliza_app_viewmodel_ProfileViewModel2;
-
-      @KeepFieldType
-      HomeViewModel com_reutiliza_app_viewmodel_HomeViewModel2;
-
-      @KeepFieldType
-      ProductDetailViewModel com_reutiliza_app_viewmodel_ProductDetailViewModel2;
     }
   }
 
@@ -514,31 +511,25 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
-      static String com_reutiliza_app_viewmodel_ProductDetailViewModel = "com.reutiliza.app.viewmodel.ProductDetailViewModel";
-
-      static String com_reutiliza_app_viewmodel_ProfileViewModel = "com.reutiliza.app.viewmodel.ProfileViewModel";
-
       static String com_reutiliza_app_viewmodel_AuthViewModel = "com.reutiliza.app.viewmodel.AuthViewModel";
 
-      static String com_reutiliza_app_viewmodel_ExploreViewModel = "com.reutiliza.app.viewmodel.ExploreViewModel";
+      static String com_reutiliza_app_viewmodel_ProductDetailViewModel = "com.reutiliza.app.viewmodel.ProductDetailViewModel";
 
       static String com_reutiliza_app_viewmodel_PublishViewModel = "com.reutiliza.app.viewmodel.PublishViewModel";
 
       static String com_reutiliza_app_viewmodel_ChatViewModel = "com.reutiliza.app.viewmodel.ChatViewModel";
 
+      static String com_reutiliza_app_viewmodel_ProfileViewModel = "com.reutiliza.app.viewmodel.ProfileViewModel";
+
       static String com_reutiliza_app_viewmodel_HomeViewModel = "com.reutiliza.app.viewmodel.HomeViewModel";
 
-      @KeepFieldType
-      ProductDetailViewModel com_reutiliza_app_viewmodel_ProductDetailViewModel2;
-
-      @KeepFieldType
-      ProfileViewModel com_reutiliza_app_viewmodel_ProfileViewModel2;
+      static String com_reutiliza_app_viewmodel_ExploreViewModel = "com.reutiliza.app.viewmodel.ExploreViewModel";
 
       @KeepFieldType
       AuthViewModel com_reutiliza_app_viewmodel_AuthViewModel2;
 
       @KeepFieldType
-      ExploreViewModel com_reutiliza_app_viewmodel_ExploreViewModel2;
+      ProductDetailViewModel com_reutiliza_app_viewmodel_ProductDetailViewModel2;
 
       @KeepFieldType
       PublishViewModel com_reutiliza_app_viewmodel_PublishViewModel2;
@@ -547,7 +538,13 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
       ChatViewModel com_reutiliza_app_viewmodel_ChatViewModel2;
 
       @KeepFieldType
+      ProfileViewModel com_reutiliza_app_viewmodel_ProfileViewModel2;
+
+      @KeepFieldType
       HomeViewModel com_reutiliza_app_viewmodel_HomeViewModel2;
+
+      @KeepFieldType
+      ExploreViewModel com_reutiliza_app_viewmodel_ExploreViewModel2;
     }
 
     private static final class SwitchingProvider<T> implements Provider<T> {
@@ -575,22 +572,22 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
           return (T) new AuthViewModel(singletonCImpl.authRepositoryProvider.get());
 
           case 1: // com.reutiliza.app.viewmodel.ChatViewModel 
-          return (T) new ChatViewModel(singletonCImpl.chatRepositoryProvider.get(), singletonCImpl.userRepositoryProvider.get(), singletonCImpl.provideFirebaseAuthProvider.get());
+          return (T) new ChatViewModel(singletonCImpl.chatRepositoryProvider.get(), singletonCImpl.userRepositoryProvider.get(), singletonCImpl.authRepositoryProvider.get());
 
           case 2: // com.reutiliza.app.viewmodel.ExploreViewModel 
           return (T) new ExploreViewModel(singletonCImpl.productRepositoryProvider.get());
 
           case 3: // com.reutiliza.app.viewmodel.HomeViewModel 
-          return (T) new HomeViewModel(singletonCImpl.productRepositoryProvider.get(), singletonCImpl.userRepositoryProvider.get(), singletonCImpl.provideFirebaseAuthProvider.get());
+          return (T) new HomeViewModel(singletonCImpl.productRepositoryProvider.get(), singletonCImpl.userRepositoryProvider.get(), singletonCImpl.authRepositoryProvider.get());
 
           case 4: // com.reutiliza.app.viewmodel.ProductDetailViewModel 
-          return (T) new ProductDetailViewModel(singletonCImpl.productRepositoryProvider.get(), singletonCImpl.userRepositoryProvider.get(), singletonCImpl.chatRepositoryProvider.get(), singletonCImpl.provideFirebaseAuthProvider.get());
+          return (T) new ProductDetailViewModel(singletonCImpl.productRepositoryProvider.get(), singletonCImpl.userRepositoryProvider.get(), singletonCImpl.chatRepositoryProvider.get(), singletonCImpl.authRepositoryProvider.get());
 
           case 5: // com.reutiliza.app.viewmodel.ProfileViewModel 
-          return (T) new ProfileViewModel(singletonCImpl.userRepositoryProvider.get(), singletonCImpl.authRepositoryProvider.get(), singletonCImpl.provideFirebaseAuthProvider.get());
+          return (T) new ProfileViewModel(singletonCImpl.userRepositoryProvider.get(), singletonCImpl.authRepositoryProvider.get());
 
           case 6: // com.reutiliza.app.viewmodel.PublishViewModel 
-          return (T) new PublishViewModel(singletonCImpl.productRepositoryProvider.get(), singletonCImpl.userRepositoryProvider.get(), singletonCImpl.provideFirebaseAuthProvider.get());
+          return (T) new PublishViewModel(singletonCImpl.productRepositoryProvider.get(), singletonCImpl.userRepositoryProvider.get(), singletonCImpl.authRepositoryProvider.get());
 
           default: throw new AssertionError(id);
         }
@@ -668,11 +665,17 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
   }
 
   private static final class SingletonCImpl extends ReUtilizaApp_HiltComponents.SingletonC {
+    private final ApplicationContextModule applicationContextModule;
+
     private final SingletonCImpl singletonCImpl = this;
 
-    private Provider<FirebaseAuth> provideFirebaseAuthProvider;
+    private Provider<SessionManager> sessionManagerProvider;
 
-    private Provider<FirebaseFirestore> provideFirestoreProvider;
+    private Provider<OkHttpClient> provideOkHttpClientProvider;
+
+    private Provider<Retrofit> provideRetrofitProvider;
+
+    private Provider<ReUtilizaApiService> provideReUtilizaApiServiceProvider;
 
     private Provider<AuthRepository> authRepositoryProvider;
 
@@ -680,25 +683,24 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
 
     private Provider<UserRepository> userRepositoryProvider;
 
-    private Provider<FirebaseStorage> provideStorageProvider;
-
     private Provider<ProductRepository> productRepositoryProvider;
 
-    private SingletonCImpl() {
-
-      initialize();
+    private SingletonCImpl(ApplicationContextModule applicationContextModuleParam) {
+      this.applicationContextModule = applicationContextModuleParam;
+      initialize(applicationContextModuleParam);
 
     }
 
     @SuppressWarnings("unchecked")
-    private void initialize() {
-      this.provideFirebaseAuthProvider = DoubleCheck.provider(new SwitchingProvider<FirebaseAuth>(singletonCImpl, 0));
-      this.provideFirestoreProvider = DoubleCheck.provider(new SwitchingProvider<FirebaseFirestore>(singletonCImpl, 2));
+    private void initialize(final ApplicationContextModule applicationContextModuleParam) {
+      this.sessionManagerProvider = DoubleCheck.provider(new SwitchingProvider<SessionManager>(singletonCImpl, 0));
+      this.provideOkHttpClientProvider = DoubleCheck.provider(new SwitchingProvider<OkHttpClient>(singletonCImpl, 4));
+      this.provideRetrofitProvider = DoubleCheck.provider(new SwitchingProvider<Retrofit>(singletonCImpl, 3));
+      this.provideReUtilizaApiServiceProvider = DoubleCheck.provider(new SwitchingProvider<ReUtilizaApiService>(singletonCImpl, 2));
       this.authRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<AuthRepository>(singletonCImpl, 1));
-      this.chatRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<ChatRepository>(singletonCImpl, 3));
-      this.userRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<UserRepository>(singletonCImpl, 4));
-      this.provideStorageProvider = DoubleCheck.provider(new SwitchingProvider<FirebaseStorage>(singletonCImpl, 6));
-      this.productRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<ProductRepository>(singletonCImpl, 5));
+      this.chatRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<ChatRepository>(singletonCImpl, 5));
+      this.userRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<UserRepository>(singletonCImpl, 6));
+      this.productRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<ProductRepository>(singletonCImpl, 7));
     }
 
     @Override
@@ -734,26 +736,29 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
       @Override
       public T get() {
         switch (id) {
-          case 0: // com.google.firebase.auth.FirebaseAuth 
-          return (T) AppModule_ProvideFirebaseAuthFactory.provideFirebaseAuth();
+          case 0: // com.reutiliza.app.data.local.SessionManager 
+          return (T) new SessionManager(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
 
           case 1: // com.reutiliza.app.data.repository.AuthRepository 
-          return (T) new AuthRepository(singletonCImpl.provideFirebaseAuthProvider.get(), singletonCImpl.provideFirestoreProvider.get());
+          return (T) new AuthRepository(singletonCImpl.provideReUtilizaApiServiceProvider.get(), singletonCImpl.sessionManagerProvider.get());
 
-          case 2: // com.google.firebase.firestore.FirebaseFirestore 
-          return (T) AppModule_ProvideFirestoreFactory.provideFirestore();
+          case 2: // com.reutiliza.app.data.remote.ReUtilizaApiService 
+          return (T) AppModule_ProvideReUtilizaApiServiceFactory.provideReUtilizaApiService(singletonCImpl.provideRetrofitProvider.get());
 
-          case 3: // com.reutiliza.app.data.repository.ChatRepository 
-          return (T) new ChatRepository(singletonCImpl.provideFirestoreProvider.get());
+          case 3: // retrofit2.Retrofit 
+          return (T) AppModule_ProvideRetrofitFactory.provideRetrofit(singletonCImpl.provideOkHttpClientProvider.get());
 
-          case 4: // com.reutiliza.app.data.repository.UserRepository 
-          return (T) new UserRepository(singletonCImpl.provideFirestoreProvider.get());
+          case 4: // okhttp3.OkHttpClient 
+          return (T) AppModule_ProvideOkHttpClientFactory.provideOkHttpClient();
 
-          case 5: // com.reutiliza.app.data.repository.ProductRepository 
-          return (T) new ProductRepository(singletonCImpl.provideFirestoreProvider.get(), singletonCImpl.provideStorageProvider.get());
+          case 5: // com.reutiliza.app.data.repository.ChatRepository 
+          return (T) new ChatRepository(singletonCImpl.provideReUtilizaApiServiceProvider.get(), singletonCImpl.sessionManagerProvider.get());
 
-          case 6: // com.google.firebase.storage.FirebaseStorage 
-          return (T) AppModule_ProvideStorageFactory.provideStorage();
+          case 6: // com.reutiliza.app.data.repository.UserRepository 
+          return (T) new UserRepository(singletonCImpl.provideReUtilizaApiServiceProvider.get(), singletonCImpl.sessionManagerProvider.get());
+
+          case 7: // com.reutiliza.app.data.repository.ProductRepository 
+          return (T) new ProductRepository(singletonCImpl.provideReUtilizaApiServiceProvider.get(), singletonCImpl.sessionManagerProvider.get());
 
           default: throw new AssertionError(id);
         }

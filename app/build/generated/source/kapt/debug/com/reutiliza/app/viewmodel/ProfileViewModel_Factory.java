@@ -1,6 +1,5 @@
 package com.reutiliza.app.viewmodel;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.reutiliza.app.data.repository.AuthRepository;
 import com.reutiliza.app.data.repository.UserRepository;
 import dagger.internal.DaggerGenerated;
@@ -29,27 +28,23 @@ public final class ProfileViewModel_Factory implements Factory<ProfileViewModel>
 
   private final Provider<AuthRepository> authRepoProvider;
 
-  private final Provider<FirebaseAuth> authProvider;
-
   public ProfileViewModel_Factory(Provider<UserRepository> userRepoProvider,
-      Provider<AuthRepository> authRepoProvider, Provider<FirebaseAuth> authProvider) {
+      Provider<AuthRepository> authRepoProvider) {
     this.userRepoProvider = userRepoProvider;
     this.authRepoProvider = authRepoProvider;
-    this.authProvider = authProvider;
   }
 
   @Override
   public ProfileViewModel get() {
-    return newInstance(userRepoProvider.get(), authRepoProvider.get(), authProvider.get());
+    return newInstance(userRepoProvider.get(), authRepoProvider.get());
   }
 
   public static ProfileViewModel_Factory create(Provider<UserRepository> userRepoProvider,
-      Provider<AuthRepository> authRepoProvider, Provider<FirebaseAuth> authProvider) {
-    return new ProfileViewModel_Factory(userRepoProvider, authRepoProvider, authProvider);
+      Provider<AuthRepository> authRepoProvider) {
+    return new ProfileViewModel_Factory(userRepoProvider, authRepoProvider);
   }
 
-  public static ProfileViewModel newInstance(UserRepository userRepo, AuthRepository authRepo,
-      FirebaseAuth auth) {
-    return new ProfileViewModel(userRepo, authRepo, auth);
+  public static ProfileViewModel newInstance(UserRepository userRepo, AuthRepository authRepo) {
+    return new ProfileViewModel(userRepo, authRepo);
   }
 }

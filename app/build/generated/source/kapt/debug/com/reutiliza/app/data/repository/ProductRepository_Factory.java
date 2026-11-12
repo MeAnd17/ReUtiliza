@@ -1,7 +1,7 @@
 package com.reutiliza.app.data.repository;
 
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
+import com.reutiliza.app.data.local.SessionManager;
+import com.reutiliza.app.data.remote.ReUtilizaApiService;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.Factory;
 import dagger.internal.QualifierMetadata;
@@ -24,28 +24,27 @@ import javax.inject.Provider;
     "cast"
 })
 public final class ProductRepository_Factory implements Factory<ProductRepository> {
-  private final Provider<FirebaseFirestore> firestoreProvider;
+  private final Provider<ReUtilizaApiService> apiProvider;
 
-  private final Provider<FirebaseStorage> storageProvider;
+  private final Provider<SessionManager> sessionProvider;
 
-  public ProductRepository_Factory(Provider<FirebaseFirestore> firestoreProvider,
-      Provider<FirebaseStorage> storageProvider) {
-    this.firestoreProvider = firestoreProvider;
-    this.storageProvider = storageProvider;
+  public ProductRepository_Factory(Provider<ReUtilizaApiService> apiProvider,
+      Provider<SessionManager> sessionProvider) {
+    this.apiProvider = apiProvider;
+    this.sessionProvider = sessionProvider;
   }
 
   @Override
   public ProductRepository get() {
-    return newInstance(firestoreProvider.get(), storageProvider.get());
+    return newInstance(apiProvider.get(), sessionProvider.get());
   }
 
-  public static ProductRepository_Factory create(Provider<FirebaseFirestore> firestoreProvider,
-      Provider<FirebaseStorage> storageProvider) {
-    return new ProductRepository_Factory(firestoreProvider, storageProvider);
+  public static ProductRepository_Factory create(Provider<ReUtilizaApiService> apiProvider,
+      Provider<SessionManager> sessionProvider) {
+    return new ProductRepository_Factory(apiProvider, sessionProvider);
   }
 
-  public static ProductRepository newInstance(FirebaseFirestore firestore,
-      FirebaseStorage storage) {
-    return new ProductRepository(firestore, storage);
+  public static ProductRepository newInstance(ReUtilizaApiService api, SessionManager session) {
+    return new ProductRepository(api, session);
   }
 }
