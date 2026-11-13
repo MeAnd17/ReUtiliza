@@ -1,5 +1,6 @@
 package com.reutiliza.app.viewmodel;
 
+import com.reutiliza.app.data.location.LocationManager;
 import com.reutiliza.app.data.repository.AuthRepository;
 import com.reutiliza.app.data.repository.ProductRepository;
 import com.reutiliza.app.data.repository.UserRepository;
@@ -31,25 +32,30 @@ public final class PublishViewModel_Factory implements Factory<PublishViewModel>
 
   private final Provider<AuthRepository> authRepoProvider;
 
+  private final Provider<LocationManager> locationManagerProvider;
+
   public PublishViewModel_Factory(Provider<ProductRepository> productRepoProvider,
-      Provider<UserRepository> userRepoProvider, Provider<AuthRepository> authRepoProvider) {
+      Provider<UserRepository> userRepoProvider, Provider<AuthRepository> authRepoProvider,
+      Provider<LocationManager> locationManagerProvider) {
     this.productRepoProvider = productRepoProvider;
     this.userRepoProvider = userRepoProvider;
     this.authRepoProvider = authRepoProvider;
+    this.locationManagerProvider = locationManagerProvider;
   }
 
   @Override
   public PublishViewModel get() {
-    return newInstance(productRepoProvider.get(), userRepoProvider.get(), authRepoProvider.get());
+    return newInstance(productRepoProvider.get(), userRepoProvider.get(), authRepoProvider.get(), locationManagerProvider.get());
   }
 
   public static PublishViewModel_Factory create(Provider<ProductRepository> productRepoProvider,
-      Provider<UserRepository> userRepoProvider, Provider<AuthRepository> authRepoProvider) {
-    return new PublishViewModel_Factory(productRepoProvider, userRepoProvider, authRepoProvider);
+      Provider<UserRepository> userRepoProvider, Provider<AuthRepository> authRepoProvider,
+      Provider<LocationManager> locationManagerProvider) {
+    return new PublishViewModel_Factory(productRepoProvider, userRepoProvider, authRepoProvider, locationManagerProvider);
   }
 
   public static PublishViewModel newInstance(ProductRepository productRepo, UserRepository userRepo,
-      AuthRepository authRepo) {
-    return new PublishViewModel(productRepo, userRepo, authRepo);
+      AuthRepository authRepo, LocationManager locationManager) {
+    return new PublishViewModel(productRepo, userRepo, authRepo, locationManager);
   }
 }

@@ -2,6 +2,8 @@ package com.reutiliza.app.viewmodel;
 
 import android.net.Uri;
 import androidx.lifecycle.ViewModel;
+import com.reutiliza.app.data.location.LocationManager;
+import com.reutiliza.app.data.location.UserLocation;
 import com.reutiliza.app.data.model.Product;
 import com.reutiliza.app.data.model.ProductCategory;
 import com.reutiliza.app.data.model.ProductCondition;

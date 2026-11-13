@@ -18,6 +18,9 @@ coil = "2.7.0"
 coroutines = "1.8.1"
 accompanistPermissions = "0.36.0"
 datastorePreferences = "1.1.1"
+mapsCompose = "4.4.1"
+googleMaps = "18.2.0"
+playServicesLocation = "21.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }

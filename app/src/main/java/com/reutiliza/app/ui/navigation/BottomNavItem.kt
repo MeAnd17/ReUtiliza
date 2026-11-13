@@ -5,7 +5,6 @@ import androidx.compose.material.icons.filled.Chat
 import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.outlined.Chat
 import androidx.compose.material.icons.outlined.Explore
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
@@ -21,6 +20,6 @@ data class BottomNavItem(
 val bottomNavItems = listOf(
     BottomNavItem("Inicio",   Screen.Home.route,    Icons.Filled.Home,    Icons.Outlined.Home),
     BottomNavItem("Explorar", Screen.Explore.route, Icons.Filled.Explore, Icons.Outlined.Explore),
-    BottomNavItem("Chats",    Screen.Chats.route,   Icons.Filled.Chat,    Icons.Outlined.Chat),
+    BottomNavItem("Chats",    Screen.Chats.route,   Icons.Filled.Chat,    Icons.Filled.Chat),
     BottomNavItem("Perfil",   Screen.Profile.route, Icons.Filled.Person,  Icons.Outlined.Person)
 )

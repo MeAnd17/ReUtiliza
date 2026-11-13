@@ -10,6 +10,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.reutiliza.app.data.local.SessionManager;
+import com.reutiliza.app.data.location.LocationManager;
 import com.reutiliza.app.data.remote.ReUtilizaApiService;
 import com.reutiliza.app.data.repository.AuthRepository;
 import com.reutiliza.app.data.repository.ChatRepository;
@@ -26,6 +27,8 @@ import com.reutiliza.app.viewmodel.ExploreViewModel;
 import com.reutiliza.app.viewmodel.ExploreViewModel_HiltModules;
 import com.reutiliza.app.viewmodel.HomeViewModel;
 import com.reutiliza.app.viewmodel.HomeViewModel_HiltModules;
+import com.reutiliza.app.viewmodel.MapViewModel;
+import com.reutiliza.app.viewmodel.MapViewModel_HiltModules;
 import com.reutiliza.app.viewmodel.ProductDetailViewModel;
 import com.reutiliza.app.viewmodel.ProductDetailViewModel_HiltModules;
 import com.reutiliza.app.viewmodel.ProfileViewModel;
@@ -393,7 +396,7 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
 
     @Override
     public Map<Class<?>, Boolean> getViewModelKeys() {
-      return LazyClassKeyMap.<Boolean>of(ImmutableMap.<String, Boolean>builderWithExpectedSize(7).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_AuthViewModel, AuthViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_ChatViewModel, ChatViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_ExploreViewModel, ExploreViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_HomeViewModel, HomeViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_ProductDetailViewModel, ProductDetailViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_ProfileViewModel, ProfileViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_PublishViewModel, PublishViewModel_HiltModules.KeyModule.provide()).build());
+      return LazyClassKeyMap.<Boolean>of(ImmutableMap.<String, Boolean>builderWithExpectedSize(8).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_AuthViewModel, AuthViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_ChatViewModel, ChatViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_ExploreViewModel, ExploreViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_HomeViewModel, HomeViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_MapViewModel, MapViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_ProductDetailViewModel, ProductDetailViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_ProfileViewModel, ProfileViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_PublishViewModel, PublishViewModel_HiltModules.KeyModule.provide()).build());
     }
 
     @Override
@@ -419,40 +422,45 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
-      static String com_reutiliza_app_viewmodel_HomeViewModel = "com.reutiliza.app.viewmodel.HomeViewModel";
+      static String com_reutiliza_app_viewmodel_ProfileViewModel = "com.reutiliza.app.viewmodel.ProfileViewModel";
 
-      static String com_reutiliza_app_viewmodel_AuthViewModel = "com.reutiliza.app.viewmodel.AuthViewModel";
+      static String com_reutiliza_app_viewmodel_HomeViewModel = "com.reutiliza.app.viewmodel.HomeViewModel";
 
       static String com_reutiliza_app_viewmodel_ProductDetailViewModel = "com.reutiliza.app.viewmodel.ProductDetailViewModel";
 
-      static String com_reutiliza_app_viewmodel_ChatViewModel = "com.reutiliza.app.viewmodel.ChatViewModel";
-
-      static String com_reutiliza_app_viewmodel_PublishViewModel = "com.reutiliza.app.viewmodel.PublishViewModel";
+      static String com_reutiliza_app_viewmodel_AuthViewModel = "com.reutiliza.app.viewmodel.AuthViewModel";
 
       static String com_reutiliza_app_viewmodel_ExploreViewModel = "com.reutiliza.app.viewmodel.ExploreViewModel";
 
-      static String com_reutiliza_app_viewmodel_ProfileViewModel = "com.reutiliza.app.viewmodel.ProfileViewModel";
+      static String com_reutiliza_app_viewmodel_PublishViewModel = "com.reutiliza.app.viewmodel.PublishViewModel";
+
+      static String com_reutiliza_app_viewmodel_MapViewModel = "com.reutiliza.app.viewmodel.MapViewModel";
+
+      static String com_reutiliza_app_viewmodel_ChatViewModel = "com.reutiliza.app.viewmodel.ChatViewModel";
+
+      @KeepFieldType
+      ProfileViewModel com_reutiliza_app_viewmodel_ProfileViewModel2;
 
       @KeepFieldType
       HomeViewModel com_reutiliza_app_viewmodel_HomeViewModel2;
 
       @KeepFieldType
-      AuthViewModel com_reutiliza_app_viewmodel_AuthViewModel2;
-
-      @KeepFieldType
       ProductDetailViewModel com_reutiliza_app_viewmodel_ProductDetailViewModel2;
 
       @KeepFieldType
-      ChatViewModel com_reutiliza_app_viewmodel_ChatViewModel2;
-
-      @KeepFieldType
-      PublishViewModel com_reutiliza_app_viewmodel_PublishViewModel2;
+      AuthViewModel com_reutiliza_app_viewmodel_AuthViewModel2;
 
       @KeepFieldType
       ExploreViewModel com_reutiliza_app_viewmodel_ExploreViewModel2;
 
       @KeepFieldType
-      ProfileViewModel com_reutiliza_app_viewmodel_ProfileViewModel2;
+      PublishViewModel com_reutiliza_app_viewmodel_PublishViewModel2;
+
+      @KeepFieldType
+      MapViewModel com_reutiliza_app_viewmodel_MapViewModel2;
+
+      @KeepFieldType
+      ChatViewModel com_reutiliza_app_viewmodel_ChatViewModel2;
     }
   }
 
@@ -470,6 +478,8 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
     private Provider<ExploreViewModel> exploreViewModelProvider;
 
     private Provider<HomeViewModel> homeViewModelProvider;
+
+    private Provider<MapViewModel> mapViewModelProvider;
 
     private Provider<ProductDetailViewModel> productDetailViewModelProvider;
 
@@ -494,14 +504,15 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
       this.chatViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 1);
       this.exploreViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 2);
       this.homeViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 3);
-      this.productDetailViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 4);
-      this.profileViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 5);
-      this.publishViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 6);
+      this.mapViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 4);
+      this.productDetailViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 5);
+      this.profileViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 6);
+      this.publishViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 7);
     }
 
     @Override
     public Map<Class<?>, javax.inject.Provider<ViewModel>> getHiltViewModelMap() {
-      return LazyClassKeyMap.<javax.inject.Provider<ViewModel>>of(ImmutableMap.<String, javax.inject.Provider<ViewModel>>builderWithExpectedSize(7).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_AuthViewModel, ((Provider) authViewModelProvider)).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_ChatViewModel, ((Provider) chatViewModelProvider)).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_ExploreViewModel, ((Provider) exploreViewModelProvider)).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_HomeViewModel, ((Provider) homeViewModelProvider)).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_ProductDetailViewModel, ((Provider) productDetailViewModelProvider)).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_ProfileViewModel, ((Provider) profileViewModelProvider)).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_PublishViewModel, ((Provider) publishViewModelProvider)).build());
+      return LazyClassKeyMap.<javax.inject.Provider<ViewModel>>of(ImmutableMap.<String, javax.inject.Provider<ViewModel>>builderWithExpectedSize(8).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_AuthViewModel, ((Provider) authViewModelProvider)).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_ChatViewModel, ((Provider) chatViewModelProvider)).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_ExploreViewModel, ((Provider) exploreViewModelProvider)).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_HomeViewModel, ((Provider) homeViewModelProvider)).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_MapViewModel, ((Provider) mapViewModelProvider)).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_ProductDetailViewModel, ((Provider) productDetailViewModelProvider)).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_ProfileViewModel, ((Provider) profileViewModelProvider)).put(LazyClassKeyProvider.com_reutiliza_app_viewmodel_PublishViewModel, ((Provider) publishViewModelProvider)).build());
     }
 
     @Override
@@ -511,22 +522,24 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
-      static String com_reutiliza_app_viewmodel_AuthViewModel = "com.reutiliza.app.viewmodel.AuthViewModel";
+      static String com_reutiliza_app_viewmodel_ChatViewModel = "com.reutiliza.app.viewmodel.ChatViewModel";
 
       static String com_reutiliza_app_viewmodel_ProductDetailViewModel = "com.reutiliza.app.viewmodel.ProductDetailViewModel";
 
       static String com_reutiliza_app_viewmodel_PublishViewModel = "com.reutiliza.app.viewmodel.PublishViewModel";
 
-      static String com_reutiliza_app_viewmodel_ChatViewModel = "com.reutiliza.app.viewmodel.ChatViewModel";
+      static String com_reutiliza_app_viewmodel_MapViewModel = "com.reutiliza.app.viewmodel.MapViewModel";
 
       static String com_reutiliza_app_viewmodel_ProfileViewModel = "com.reutiliza.app.viewmodel.ProfileViewModel";
 
-      static String com_reutiliza_app_viewmodel_HomeViewModel = "com.reutiliza.app.viewmodel.HomeViewModel";
-
       static String com_reutiliza_app_viewmodel_ExploreViewModel = "com.reutiliza.app.viewmodel.ExploreViewModel";
 
+      static String com_reutiliza_app_viewmodel_HomeViewModel = "com.reutiliza.app.viewmodel.HomeViewModel";
+
+      static String com_reutiliza_app_viewmodel_AuthViewModel = "com.reutiliza.app.viewmodel.AuthViewModel";
+
       @KeepFieldType
-      AuthViewModel com_reutiliza_app_viewmodel_AuthViewModel2;
+      ChatViewModel com_reutiliza_app_viewmodel_ChatViewModel2;
 
       @KeepFieldType
       ProductDetailViewModel com_reutiliza_app_viewmodel_ProductDetailViewModel2;
@@ -535,16 +548,19 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
       PublishViewModel com_reutiliza_app_viewmodel_PublishViewModel2;
 
       @KeepFieldType
-      ChatViewModel com_reutiliza_app_viewmodel_ChatViewModel2;
+      MapViewModel com_reutiliza_app_viewmodel_MapViewModel2;
 
       @KeepFieldType
       ProfileViewModel com_reutiliza_app_viewmodel_ProfileViewModel2;
 
       @KeepFieldType
+      ExploreViewModel com_reutiliza_app_viewmodel_ExploreViewModel2;
+
+      @KeepFieldType
       HomeViewModel com_reutiliza_app_viewmodel_HomeViewModel2;
 
       @KeepFieldType
-      ExploreViewModel com_reutiliza_app_viewmodel_ExploreViewModel2;
+      AuthViewModel com_reutiliza_app_viewmodel_AuthViewModel2;
     }
 
     private static final class SwitchingProvider<T> implements Provider<T> {
@@ -580,14 +596,17 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
           case 3: // com.reutiliza.app.viewmodel.HomeViewModel 
           return (T) new HomeViewModel(singletonCImpl.productRepositoryProvider.get(), singletonCImpl.userRepositoryProvider.get(), singletonCImpl.authRepositoryProvider.get());
 
-          case 4: // com.reutiliza.app.viewmodel.ProductDetailViewModel 
+          case 4: // com.reutiliza.app.viewmodel.MapViewModel 
+          return (T) new MapViewModel(singletonCImpl.productRepositoryProvider.get(), singletonCImpl.locationManagerProvider.get());
+
+          case 5: // com.reutiliza.app.viewmodel.ProductDetailViewModel 
           return (T) new ProductDetailViewModel(singletonCImpl.productRepositoryProvider.get(), singletonCImpl.userRepositoryProvider.get(), singletonCImpl.chatRepositoryProvider.get(), singletonCImpl.authRepositoryProvider.get());
 
-          case 5: // com.reutiliza.app.viewmodel.ProfileViewModel 
+          case 6: // com.reutiliza.app.viewmodel.ProfileViewModel 
           return (T) new ProfileViewModel(singletonCImpl.userRepositoryProvider.get(), singletonCImpl.authRepositoryProvider.get());
 
-          case 6: // com.reutiliza.app.viewmodel.PublishViewModel 
-          return (T) new PublishViewModel(singletonCImpl.productRepositoryProvider.get(), singletonCImpl.userRepositoryProvider.get(), singletonCImpl.authRepositoryProvider.get());
+          case 7: // com.reutiliza.app.viewmodel.PublishViewModel 
+          return (T) new PublishViewModel(singletonCImpl.productRepositoryProvider.get(), singletonCImpl.userRepositoryProvider.get(), singletonCImpl.authRepositoryProvider.get(), singletonCImpl.locationManagerProvider.get());
 
           default: throw new AssertionError(id);
         }
@@ -685,6 +704,8 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
 
     private Provider<ProductRepository> productRepositoryProvider;
 
+    private Provider<LocationManager> locationManagerProvider;
+
     private SingletonCImpl(ApplicationContextModule applicationContextModuleParam) {
       this.applicationContextModule = applicationContextModuleParam;
       initialize(applicationContextModuleParam);
@@ -701,10 +722,11 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
       this.chatRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<ChatRepository>(singletonCImpl, 5));
       this.userRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<UserRepository>(singletonCImpl, 6));
       this.productRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<ProductRepository>(singletonCImpl, 7));
+      this.locationManagerProvider = DoubleCheck.provider(new SwitchingProvider<LocationManager>(singletonCImpl, 8));
     }
 
     @Override
-    public void injectReUtilizaApp(ReUtilizaApp arg0) {
+    public void injectReUtilizaApp(ReUtilizaApp reUtilizaApp) {
     }
 
     @Override
@@ -759,6 +781,9 @@ public final class DaggerReUtilizaApp_HiltComponents_SingletonC {
 
           case 7: // com.reutiliza.app.data.repository.ProductRepository 
           return (T) new ProductRepository(singletonCImpl.provideReUtilizaApiServiceProvider.get(), singletonCImpl.sessionManagerProvider.get());
+
+          case 8: // com.reutiliza.app.data.location.LocationManager 
+          return (T) new LocationManager(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
 
           default: throw new AssertionError(id);
         }

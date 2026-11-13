@@ -49,6 +49,7 @@ fun ChatDetailScreen(
 
     val chat = vm.chats.collectAsState().value.find { it.id == chatId }
     val (otherUserName, otherUserPhoto) = vm.getOtherUserForChat(chat)
+    val finalOtherName = if (otherUserName == "Chat") "Negociación" else otherUserName
     val userPhotoModel = rememberImageModel(otherUserPhoto)
 
     Column(modifier = Modifier.fillMaxSize().background(Green50).imePadding()) {
@@ -75,7 +76,7 @@ fun ChatDetailScreen(
                     )
                 } else {
                     Text(
-                        otherUserName.firstOrNull()?.uppercase() ?: "?",
+                        finalOtherName.firstOrNull()?.uppercase() ?: "?",
                         style = MaterialTheme.typography.titleMedium.copy(color = Color.White)
                     )
                 }
@@ -83,11 +84,11 @@ fun ChatDetailScreen(
             Spacer(Modifier.width(10.dp))
             Column {
                 Text(
-                    otherUserName,
+                    finalOtherName,
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
                 )
                 Text(
-                    chat?.productTitle ?: "",
+                    chat?.productTitle ?: "Artículo en negociación",
                     style = MaterialTheme.typography.bodySmall.copy(color = NeutralGray400)
                 )
             }

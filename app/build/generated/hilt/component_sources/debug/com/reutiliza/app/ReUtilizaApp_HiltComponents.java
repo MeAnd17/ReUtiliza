@@ -5,6 +5,7 @@ import com.reutiliza.app.viewmodel.AuthViewModel_HiltModules;
 import com.reutiliza.app.viewmodel.ChatViewModel_HiltModules;
 import com.reutiliza.app.viewmodel.ExploreViewModel_HiltModules;
 import com.reutiliza.app.viewmodel.HomeViewModel_HiltModules;
+import com.reutiliza.app.viewmodel.MapViewModel_HiltModules;
 import com.reutiliza.app.viewmodel.ProductDetailViewModel_HiltModules;
 import com.reutiliza.app.viewmodel.ProfileViewModel_HiltModules;
 import com.reutiliza.app.viewmodel.PublishViewModel_HiltModules;
@@ -165,6 +166,7 @@ public final class ReUtilizaApp_HiltComponents {
           HiltWrapper_ActivityRetainedComponentManager_LifecycleModule.class,
           HiltWrapper_SavedStateHandleModule.class,
           HomeViewModel_HiltModules.KeyModule.class,
+          MapViewModel_HiltModules.KeyModule.class,
           ProductDetailViewModel_HiltModules.KeyModule.class,
           ProfileViewModel_HiltModules.KeyModule.class,
           PublishViewModel_HiltModules.KeyModule.class,
@@ -210,6 +212,7 @@ public final class ReUtilizaApp_HiltComponents {
           ExploreViewModel_HiltModules.BindsModule.class,
           HiltWrapper_HiltViewModelFactory_ViewModelModule.class,
           HomeViewModel_HiltModules.BindsModule.class,
+          MapViewModel_HiltModules.BindsModule.class,
           ProductDetailViewModel_HiltModules.BindsModule.class,
           ProfileViewModel_HiltModules.BindsModule.class,
           PublishViewModel_HiltModules.BindsModule.class

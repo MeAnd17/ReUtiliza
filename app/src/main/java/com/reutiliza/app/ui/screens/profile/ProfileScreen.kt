@@ -38,7 +38,13 @@ fun ProfileScreen(
     val user   by vm.user.collectAsState()
     val badges by vm.badges.collectAsState()
     var showLogoutDialog by remember { mutableStateOf(false) }
-    var showEditDialog by remember { mutableStateOf(false) }
+    var showEditDialog   by remember { mutableStateOf(false) }
+    var showPrivacy      by remember { mutableStateOf(false) }
+
+    if (showPrivacy) {
+        PrivacyScreen(onBack = { showPrivacy = false })
+        return
+    }
 
     val authUser = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser
     val displayName = user?.name.orEmpty().ifEmpty {
@@ -228,7 +234,7 @@ fun ProfileScreen(
                 icon  = Icons.Outlined.Shield,
                 title = "Privacidad",
                 desc  = "Controla tu información",
-                onClick = { }
+                onClick = { showPrivacy = true }
             )
         }
         item {

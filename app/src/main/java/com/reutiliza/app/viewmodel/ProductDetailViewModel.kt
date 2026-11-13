@@ -75,8 +75,24 @@ class ProductDetailViewModel @Inject constructor(
             val sellerUser = userRepo.getUser(product.ownerId).getOrNull()
 
             chatRepo.getOrCreateChat(buyerUser, sellerUser, product).fold(
-                onSuccess = { _chatId.value = it },
-                onFailure = { }
+                onSuccess = { chatId ->
+                    // Enviar mensaje automático "Hola, ¿sigue disponible?"
+                    runCatching {
+                        val defaultMsg = com.reutiliza.app.data.model.Message(
+                            chatId = chatId,
+                            senderId = uid,
+                            senderName = buyerUser.name,
+                            content = "Hola, ¿sigue disponible?"
+                        )
+                        chatRepo.sendMessage(chatId, defaultMsg)
+                    }
+                    _chatId.value = chatId
+                },
+                onFailure = {
+                    // Fallback seguro para garantizar navegación inmediata
+                    val fallbackId = "chat_${product.id}_$uid"
+                    _chatId.value = fallbackId
+                }
             )
         }
     }
